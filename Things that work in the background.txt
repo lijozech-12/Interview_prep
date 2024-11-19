@@ -1,0 +1,57 @@
+Things that work in the background without customer knowing
+
+1a zerowatt device, 1b 0modbus -> 1
+
+2/ mqtt -> 3,4
+
+3a/ kafka
+
+3b/ flink since lot of data is coming that's why using fling value from different devices
+
+4b/ mqtt client, virtual device client, hourly usage client alert client (database processing) don't say in details. say thing like used to save to the database
+
+5) database -> 6 PostgreSQL, timescale is plugin that used postgres to get times series (time-value) data in faster master
+
+6) airflow <-> 5 independly works
+
+
+from customer side 
+
+I) customer (laptop or phone) -> II)
+
+II) Nginx (reverse proxy and loadbalancer) -> api request (III) multiple fast api blocks //  React(IV) based on the path
+
+
+PG bouncer connection pooling (same connection can be reused between fastapi postgressql) saves connection latency.
+
+
+
+data we are using
+how we are processing
+
+airflow processes (give something like report aggreagations)
+
+
+
+load testing using terraform/ansible = used for capacity planning and demand forecasting.
+automated scaling was future scope.
+
+
+black box monitoring = python script WhatsApp alerting system
+white box monitoring = Grafana and Prometheus
+
+
+manuvally monitoring those Grafana and Prometheus was toil so I introduced alerting in the zulip it will alert the system. 
+
+there was toil that was reducing the developers time. sometimes they need to spend more time to deploy than building applications. thus spending more 50% of time in toil. 50% is the recoomended limit for toil for an sre.
+Our deployment process was a toil so we need to CI/CD pipeline.
+It also helped us to scale faster and swifter. Also manuval control for backend deployment
+
+Rotating log files manually.  Used logrotate. another toil in the process.
+
+
+Backup of data using pgbackrest. there was no automated backup was in place i used bucket storage with pgbackrest for backing up. with considering our SLO and SLA.
+
+
+REad about configuration management tools.
+
